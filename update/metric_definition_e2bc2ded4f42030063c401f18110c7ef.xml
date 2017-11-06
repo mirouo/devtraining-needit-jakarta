@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="metric_definition">
+    <metric_definition action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description>Evaluates all records which ever had have a non-empty Other value</description>
+        <field>u_other</field>
+        <name>Other is/was not empty</name>
+        <number>MTRC0010005</number>
+        <order>100</order>
+        <script><![CDATA[// variables available
+// current: GlideRecord -  target incident
+// definition: GlideRecord -  (this row)
+if (current.Other != '') {
+       createMetric();
+}
+
+function createMetric() {
+  var mi = new MetricInstance(definition, current);
+  if (mi.metricExists()) 
+    return;
+
+  var gr = mi.getNewRecord();
+  gr.field_value = true;
+  gr.calculation_complete = true;
+  gr.insert();
+}
+]]></script>
+        <sys_class_name>metric_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-10-26 12:13:09</sys_created_on>
+        <sys_id>e2bc2ded4f42030063c401f18110c7ef</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Other is/was not empty</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>metric_definition_e2bc2ded4f42030063c401f18110c7ef</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-10-26 12:18:43</sys_updated_on>
+        <table>x_58872_needit_needit</table>
+        <timeline>true</timeline>
+        <type>calculation</type>
+    </metric_definition>
+</record_update>
